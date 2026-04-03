@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SkillConnect – Local Skill & Service Exchange</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm: #f5ede0;
+    --orange: #e8611a;
+    --orange-light: #f4874b;
+    --orange-dark: #c24e10;
+    --green: #3a7c5c;
+    --green-light: #e8f5ee;
+    --dark: #1c1a17;
+    --mid: #5a5449;
+    --light: #9e9488;
+    --card-bg: #fffcf7;
+    --border: #e8dfd0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,246,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--dark);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--orange); }
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a {
+    text-decoration: none; color: var(--mid);
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta {
+    background: var(--orange);
+    color: white !important;
+    padding: 9px 20px;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--orange-dark) !important; color: white !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 5% 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-circle {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,97,26,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-bg-circle2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(58,124,92,0.08) 0%, transparent 70%);
+    bottom: 0; left: 10%;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-light);
+    color: var(--green);
+    padding: 6px 14px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 600;
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.08;
+    margin-bottom: 22px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--orange);
+    font-weight: 400;
+  }
+  .hero p {
+    font-size: 1.1rem; color: var(--mid);
+    line-height: 1.7; max-width: 460px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--orange); color: white;
+    padding: 14px 28px; border-radius: 50px;
+    text-decoration: none; font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(232,97,26,0.3);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover {
+    background: var(--orange-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(232,97,26,0.4);
+  }
+  .btn-secondary {
+    background: transparent; color: var(--dark);
+    padding: 14px 28px; border-radius: 50px;
+    text-decoration: none; font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid var(--border);
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+    transform: translateY(-2px);
+  }
+
+  /* Hero right: floating cards */
+  .hero-visual {
+    position: relative;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .hero-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px 24px;
+    box-shadow: 0 8px 32px rgba(28,26,23,0.08);
+    margin-bottom: 16px;
+    transition: transform 0.3s;
+  }
+  .hero-card:hover { transform: translateX(6px); }
+  .hero-card-top {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700; flex-shrink: 0;
+  }
+  .hero-card-name { font-weight: 600; font-size: 0.9rem; }
+  .hero-card-loc { font-size: 0.78rem; color: var(--light); }
+  .hero-card-tag {
+    display: inline-block;
+    background: var(--warm); color: var(--orange);
+    padding: 4px 10px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 600;
+  }
+  .hero-card-desc { font-size: 0.83rem; color: var(--mid); margin-top: 8px; line-height: 1.5; }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 12px; margin-top: 8px;
+  }
+  .stat-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--orange);
+  }
+  .stat-lbl { font-size: 0.72rem; color: var(--light); margin-top: 2px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CATEGORIES ── */
+  .section { padding: 80px 5%; }
+  .section-label {
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 900; line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .section-sub { color: var(--mid); font-size: 1rem; max-width: 500px; line-height: 1.7; }
+  .section-head { margin-bottom: 48px; }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .cat-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none; color: var(--dark);
+  }
+  .cat-card:hover {
+    border-color: var(--orange);
+    background: var(--warm);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(232,97,26,0.15);
+  }
+  .cat-icon { font-size: 2rem; margin-bottom: 10px; }
+  .cat-name { font-weight: 600; font-size: 0.88rem; }
+  .cat-count { font-size: 0.75rem; color: var(--light); margin-top: 4px; }
+
+  /* ── LISTINGS ── */
+  .listings-bg { background: var(--warm); }
+  .search-bar {
+    display: flex; gap: 12px;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    padding: 8px 8px 8px 20px;
+    max-width: 600px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .search-bar input {
+    flex: 1; border: none; outline: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; background: transparent;
+    color: var(--dark);
+  }
+  .search-bar input::placeholder { color: var(--light); }
+  .search-btn {
+    background: var(--orange); color: white;
+    border: none; border-radius: 50px;
+    padding: 10px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600; font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .search-btn:hover { background: var(--orange-dark); }
+
+  .filter-chips {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .chip {
+    padding: 7px 16px; border-radius: 50px;
+    border: 1.5px solid var(--border);
+    background: white; color: var(--mid);
+    font-size: 0.82rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .chip:hover, .chip.active {
+    background: var(--orange); color: white;
+    border-color: var(--orange);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    transition: all 0.25s;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .service-card.visible {
+    opacity: 1; transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.25s, border-color 0.25s;
+  }
+  .service-card:hover {
+    box-shadow: 0 12px 36px rgba(28,26,23,0.1);
+    border-color: var(--orange-light);
+    transform: translateY(-4px);
+  }
+  .card-top {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 16px;
+  }
+  .card-avatar {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .card-badge {
+    font-size: 0.72rem; font-weight: 700;
+    padding: 5px 10px; border-radius: 20px;
+  }
+  .badge-orange { background: rgba(232,97,26,0.1); color: var(--orange); }
+  .badge-green { background: rgba(58,124,92,0.1); color: var(--green); }
+  .badge-blue { background: rgba(59,130,246,0.1); color: #2563eb; }
+  .badge-purple { background: rgba(139,92,246,0.1); color: #7c3aed; }
+
+  .card-title { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+  .card-provider { font-size: 0.82rem; color: var(--mid); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+  .card-desc { font-size: 0.85rem; color: var(--mid); line-height: 1.6; margin-bottom: 16px; }
+  .card-footer {
+    display: flex; justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .card-loc { font-size: 0.78rem; color: var(--light); display: flex; align-items: center; gap: 4px; }
+  .card-contact {
+    background: var(--dark); color: white;
+    border: none; border-radius: 50px;
+    padding: 8px 16px; font-size: 0.8rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600; cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .card-contact:hover { background: var(--orange); }
+
+  /* ── HOW IT WORKS ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+  }
+  .step {
+    text-align: center;
+    padding: 32px 20px;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    transition: transform 0.3s;
+  }
+  .step:hover { transform: translateY(-6px); }
+  .step-num {
+    width: 48px; height: 48px;
+    background: var(--orange);
+    color: white;
+    border-radius: 14px;
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .step h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; margin-bottom: 10px; }
+  .step p { font-size: 0.85rem; color: var(--mid); line-height: 1.6; }
+
+  /* ── OFFER FORM ── */
+  .form-section { background: var(--dark); color: white; }
+  .form-section .section-title { color: white; }
+  .form-section .section-sub { color: #9e9488; }
+  .form-section .section-label { color: var(--orange-light); }
+  .form-wrap {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 680px;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--orange); }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .form-group select option { background: var(--dark); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    width: 100%;
+    background: var(--orange); color: white;
+    border: none; border-radius: 50px;
+    padding: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .form-submit:hover {
+    background: var(--orange-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(232,97,26,0.4);
+  }
+  .form-success {
+    display: none;
+    text-align: center; padding: 40px;
+    color: white;
+  }
+  .form-success .tick {
+    width: 64px; height: 64px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 16px;
+  }
+  .form-success h3 { font-family: 'Fraunces', serif; font-size: 1.5rem; margin-bottom: 10px; }
+  .form-success p { color: rgba(255,255,255,0.6); }
+
+  /* ── TESTIMONIALS ── */
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .testi-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+  }
+  .stars { color: var(--orange); font-size: 0.9rem; margin-bottom: 14px; }
+  .testi-text { font-size: 0.88rem; color: var(--mid); line-height: 1.7; margin-bottom: 18px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-av { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+  .testi-name { font-weight: 600; font-size: 0.85rem; }
+  .testi-role { font-size: 0.75rem; color: var(--light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.6);
+    padding: 48px 5% 28px;
+  }
+  .footer-top {
+    display: flex; justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; gap: 32px;
+    margin-bottom: 40px;
+  }
+  .footer-brand .nav-logo { color: white; font-size: 1.4rem; }
+  .footer-brand p { font-size: 0.83rem; max-width: 240px; margin-top: 10px; line-height: 1.6; }
+  .footer-links h4 { color: white; font-size: 0.85rem; margin-bottom: 14px; font-weight: 700; }
+  .footer-links a {
+    display: block; text-decoration: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.82rem; margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--orange-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 20px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 10px;
+  }
+  .footer-bottom p { font-size: 0.78rem; }
+  .footer-bottom span { color: var(--orange-light); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(28,26,23,0.6);
+    backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 36px;
+    max-width: 440px; width: 90%;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+    animation: popIn 0.3s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .modal h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; margin-bottom: 6px; }
+  .modal-sub { font-size: 0.85rem; color: var(--mid); margin-bottom: 24px; }
+  .modal-info { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+  .modal-row { display: flex; align-items: center; gap: 12px; }
+  .modal-icon {
+    width: 38px; height: 38px;
+    background: var(--warm); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .modal-row span { font-size: 0.88rem; color: var(--mid); }
+  .modal-row strong { display: block; font-size: 0.92rem; color: var(--dark); }
+  .modal-close {
+    width: 100%; background: var(--orange); color: white;
+    border: none; border-radius: 50px; padding: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 700; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: var(--orange-dark); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-visual { display: none; }
+    nav .nav-links { display: none; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-wrap { padding: 24px; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-logo" href="#"><span>Skill</span>Connect <div class="logo-dot"></div></a>
+  <div class="nav-links">
+    <a href="#listings">Browse Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#offer" class="nav-cta">Offer a Service</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle2"></div>
+  <div class="hero-left">
+    <div class="hero-badge">🌍 Connecting Local Communities</div>
+    <h1>Find & Share<br/><em>Local Skills</em><br/>Near You</h1>
+    <p>SkillConnect bridges the gap between people with skills to offer and those who need them — right in your neighborhood. Simple, fast, and community-driven.</p>
+    <div class="hero-btns">
+      <a href="#listings" class="btn-primary">🔍 Find a Service</a>
+      <a href="#offer" class="btn-secondary">✋ Offer a Skill</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-top">
+        <div class="avatar" style="background:#fde8d8; color:#e8611a;">AK</div>
+        <div>
+          <div class="hero-card-name">Ayesha Khan</div>
+          <div class="hero-card-loc">📍 Gulshan, Karachi</div>
+        </div>
+        <span class="hero-card-tag">Tutoring</span>
+      </div>
+      <div class="hero-card-desc">Offering Math & Science tuition for Class 9–12. 5 years experience. Rs. 500/hr</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-top">
+        <div class="avatar" style="background:#e8f5ee; color:#3a7c5c;">ZA</div>
+        <div>
+          <div class="hero-card-name">Zain Ahmed</div>
+          <div class="hero-card-loc">📍 Defence, Lahore</div>
+        </div>
+        <span class="hero-card-tag">Tech Help</span>
+      </div>
+      <div class="hero-card-desc">Computer setup, WiFi troubleshooting, software installation. Home visits available.</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box"><div class="stat-num">240+</div><div class="stat-lbl">Services Listed</div></div>
+      <div class="stat-box"><div class="stat-num">18</div><div class="stat-lbl">Cities Covered</div></div>
+      <div class="stat-box"><div class="stat-num">1.2k</div><div class="stat-lbl">Happy Users</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-head reveal">
+    <div class="section-label">Browse by Category</div>
+    <h2 class="section-title">What are you looking for?</h2>
+    <p class="section-sub">From tutoring to home repairs — find the skill you need in your area.</p>
+  </div>
+  <div class="categories-grid reveal">
+    <a class="cat-card" href="#listings" onclick="filterCategory('Tutoring')">
+      <div class="cat-icon">📚</div>
+      <div class="cat-name">Tutoring</div>
+      <div class="cat-count">48 services</div>
+    </a>
+    <a class="cat-card" href="#listings" onclick="filterCategory('Tech Help')">
+      <div class="cat-icon">💻</div>
+      <div class="cat-name">Tech Help</div>
+      <div class="cat-count">32 services</div>
+    </a>
+    <a class="cat-card" href="#listings" onclick="filterCategory('Home Repair')">
+      <div class="cat-icon">🔧</div>
+      <div class="cat-name">Home Repair</div>
+      <div class="cat-count">27 services</div>
+    </a>
+    <a class="cat-card" href="#listings" onclick="filterCategory('Music')">
+      <div class="cat-icon">🎵</div>
+      <div class="cat-name">Music Lessons</div>
+      <div class="cat-count">19 services</div>
+    </a>
+    <a class="cat-card" href="#listings" onclick="filterCategory('Gardening')">
+      <div class="cat-icon">🌿</div>
+      <div class="cat-name">Gardening</div>
+      <div class="cat-count">14 services</div>
+    </a>
+    <a class="cat-card" href="#listings" onclick="filterCategory('Cleaning')">
+      <div class="cat-icon">🧹</div>
+      <div class="cat-name">Cleaning</div>
+      <div class="cat-count">22 services</div>
+    </a>
+    <a class="cat-card" href="#listings" onclick="filterCategory('Cooking')">
+      <div class="cat-icon">🍳</div>
+      <div class="cat-name">Cooking</div>
+      <div class="cat-count">16 services</div>
+    </a>
+    <a class="cat-card" href="#listings" onclick="filterCategory('Other')">
+      <div class="cat-icon">✨</div>
+      <div class="cat-name">Other Skills</div>
+      <div class="cat-count">62 services</div>
+    </a>
+  </div>
+</section>
+
+<!-- LISTINGS -->
+<section class="section listings-bg" id="listings">
+  <div class="section-head reveal">
+    <div class="section-label">Available Services</div>
+    <h2 class="section-title">Services Near You</h2>
+    <p class="section-sub">Browse local providers ready to help. Click "Contact" to get in touch directly.</p>
+  </div>
+  <div class="search-bar reveal">
+    <input type="text" id="searchInput" placeholder="Search by skill or location…" oninput="filterServices()"/>
+    <button class="search-btn">Search</button>
+  </div>
+  <div class="filter-chips reveal" id="filterChips">
+    <div class="chip active" onclick="filterChip(this,'All')">All</div>
+    <div class="chip" onclick="filterChip(this,'Tutoring')">📚 Tutoring</div>
+    <div class="chip" onclick="filterChip(this,'Tech Help')">💻 Tech Help</div>
+    <div class="chip" onclick="filterChip(this,'Home Repair')">🔧 Repairs</div>
+    <div class="chip" onclick="filterChip(this,'Music')">🎵 Music</div>
+    <div class="chip" onclick="filterChip(this,'Gardening')">🌿 Gardening</div>
+    <div class="chip" onclick="filterChip(this,'Cleaning')">🧹 Cleaning</div>
+    <div class="chip" onclick="filterChip(this,'Cooking')">🍳 Cooking</div>
+  </div>
+  <div class="services-grid" id="servicesGrid"></div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+  <div class="section-head reveal" style="text-align:center; max-width:500px; margin:0 auto 48px;">
+    <div class="section-label">Simple Process</div>
+    <h2 class="section-title">How SkillConnect Works</h2>
+    <p class="section-sub">Three simple steps to connect with your community.</p>
+  </div>
+  <div class="steps-grid reveal">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Post or Browse</h3>
+      <p>Offer your skill with a simple form, or browse services listed in your area by category or location.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Find a Match</h3>
+      <p>Filter by category, city, or keyword to find exactly the service or provider you need nearby.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Connect Directly</h3>
+      <p>Reach out to the provider through email, phone, or our built-in contact form — no middleman.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Get It Done</h3>
+      <p>Meet up locally, get the service done, and leave a review to help the community grow stronger.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" style="background:var(--warm);">
+  <div class="section-head reveal" style="text-align:center; max-width:500px; margin:0 auto 48px;">
+    <div class="section-label">Community Voices</div>
+    <h2 class="section-title">What People Say</h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"I found a brilliant Math tutor for my son within 10 minutes. Much better than asking in random WhatsApp groups!"</p>
+      <div class="testi-author">
+        <div class="testi-av" style="background:#fde8d8; color:#e8611a;">SA</div>
+        <div><div class="testi-name">Sara Akhtar</div><div class="testi-role">Parent, Karachi</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"I listed my guitar lessons on SkillConnect and got 4 students in the first week. This platform is amazing for freelancers."</p>
+      <div class="testi-author">
+        <div class="testi-av" style="background:#e8f5ee; color:#3a7c5c;">OM</div>
+        <div><div class="testi-name">Omar Mirza</div><div class="testi-role">Music Teacher, Lahore</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★☆</div>
+      <p class="testi-text">"The search and filter makes it so easy. Found a plumber in my neighborhood the same day. Totally trustworthy."</p>
+      <div class="testi-author">
+        <div class="testi-av" style="background:#ede9fe; color:#7c3aed;">RB</div>
+        <div><div class="testi-name">Rania Baig</div><div class="testi-role">Homemaker, Islamabad</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER A SERVICE FORM -->
+<section class="section form-section" id="offer">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; flex-wrap:wrap;">
+    <div class="reveal">
+      <div class="section-label">Earn From Your Skills</div>
+      <h2 class="section-title">Offer a Service<br/>in Your Area</h2>
+      <p class="section-sub">Fill in the form and your service will be listed for the community to discover. It's free and takes less than 2 minutes.</p>
+      <br/><br/>
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div style="width:40px;height:40px;background:rgba(232,97,26,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;">✅</div>
+          <span style="font-size:0.88rem; color:rgba(255,255,255,0.7);">100% Free to List Your Service</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div style="width:40px;height:40px;background:rgba(232,97,26,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;">✅</div>
+          <span style="font-size:0.88rem; color:rgba(255,255,255,0.7);">Reach Local Customers Instantly</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div style="width:40px;height:40px;background:rgba(232,97,26,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;">✅</div>
+          <span style="font-size:0.88rem; color:rgba(255,255,255,0.7);">No Tech Skills Required</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="form-wrap" id="formWrap">
+        <div class="form-grid" id="serviceForm">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="f_name" placeholder="e.g. Ahmed Ali"/>
+          </div>
+          <div class="form-group">
+            <label>Phone / Email *</label>
+            <input type="text" id="f_contact" placeholder="03xx-xxxxxxx"/>
+          </div>
+          <div class="form-group">
+            <label>Service Title *</label>
+            <input type="text" id="f_title" placeholder="e.g. Math Tutoring Class 9–12"/>
+          </div>
+          <div class="form-group">
+            <label>Category *</label>
+            <select id="f_cat">
+              <option value="">Select category</option>
+              <option>Tutoring</option>
+              <option>Tech Help</option>
+              <option>Home Repair</option>
+              <option>Music</option>
+              <option>Gardening</option>
+              <option>Cleaning</option>
+              <option>Cooking</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>City / Area *</label>
+            <input type="text" id="f_loc" placeholder="e.g. Gulshan, Karachi"/>
+          </div>
+          <div class="form-group">
+            <label>Price (optional)</label>
+            <input type="text" id="f_price" placeholder="e.g. Rs. 500/hr or Free"/>
+          </div>
+          <div class="form-group full">
+            <label>Service Description *</label>
+            <textarea id="f_desc" placeholder="Describe what you offer, your experience, and availability…"></textarea>
+          </div>
+          <div class="form-group full">
+            <button class="form-submit" onclick="submitForm()">🚀 Post My Service</button>
+          </div>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="tick">✅</div>
+          <h3>Service Posted!</h3>
+          <p>Your service is now live and visible to people in your area. Good luck!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#"><span style="color:var(--orange-light)">Skill</span>Connect</a>
+      <p>Connecting local communities through skill sharing and everyday services.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <a href="#listings">Browse Services</a>
+      <a href="#offer">Post a Service</a>
+      <a href="#how-it-works">How It Works</a>
+    </div>
+    <div class="footer-links">
+      <h4>Categories</h4>
+      <a href="#">Tutoring</a>
+      <a href="#">Tech Help</a>
+      <a href="#">Home Repair</a>
+      <a href="#">Music Lessons</a>
+    </div>
+    <div class="footer-links">
+      <h4>Support</h4>
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">FAQ</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 SkillConnect. Built for <span>local communities</span>.</p>
+    <p>A <span>University Project</span> – Professional Practice</p>
+  </div>
+</footer>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <h3 id="modal_title">Service Name</h3>
+    <p class="modal-sub" id="modal_sub">Contact the provider directly</p>
+    <div class="modal-info">
+      <div class="modal-row">
+        <div class="modal-icon">👤</div>
+        <div><strong id="modal_name"></strong><span>Service Provider</span></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-icon">📍</div>
+        <div><strong id="modal_loc"></strong><span>Location</span></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-icon">📞</div>
+        <div><strong id="modal_contact"></strong><span>Contact</span></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-icon">💰</div>
+        <div><strong id="modal_price"></strong><span>Rate</span></div>
+      </div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+const API = 'http://localhost:3000/api/services';
+let services = [];
+let filtered = [];
+let activeFilter = 'All';
+
+function getStyle(category) {
+  const map = {
+    'Tutoring':    { badge:'badge-orange', icon:'📚', color:'#fde8d8', tc:'#e8611a' },
+    'Tech Help':   { badge:'badge-blue',   icon:'💻', color:'#dbeafe', tc:'#2563eb' },
+    'Music':       { badge:'badge-purple', icon:'🎵', color:'#ede9fe', tc:'#7c3aed' },
+    'Gardening':   { badge:'badge-green',  icon:'🌿', color:'#e8f5ee', tc:'#3a7c5c' },
+    'Cleaning':    { badge:'badge-orange', icon:'🧹', color:'#fde8d8', tc:'#e8611a' },
+    'Home Repair': { badge:'badge-blue',   icon:'🔧', color:'#dbeafe', tc:'#2563eb' },
+    'Cooking':     { badge:'badge-green',  icon:'🍳', color:'#e8f5ee', tc:'#3a7c5c' },
+  };
+  return map[category] || { badge:'badge-orange', icon:'🌟', color:'#fde8d8', tc:'#e8611a' };
+}
+
+async function loadServices() {
+  try {
+    const res = await fetch(API);
+    const data = await res.json();
+    services = data.map(s => ({
+      ...s,
+      desc: s.description,
+      ...getStyle(s.category),
+      emoji: s.provider.substring(0,2).toUpperCase()
+    }));
+    filtered = [...services];
+    renderCards(filtered);
+  } catch (err) {
+    console.error('Could not load services. Is the server running?', err);
+  }
+}
+
+function renderCards(list) {
+  const grid = document.getElementById('servicesGrid');
+  grid.innerHTML = '';
+  if (list.length === 0) {
+    grid.innerHTML = '<p style="color:var(--mid); text-align:center; padding:40px;">No services found.</p>';
+    return;
+  }
+  list.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'service-card';
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-avatar" style="background:${s.color}; color:${s.tc};">${s.icon}</div>
+        <span class="card-badge ${s.badge}">${s.category}</span>
+      </div>
+      <div class="card-title">${s.title}</div>
+      <div class="card-provider">👤 ${s.provider}</div>
+      <div class="card-desc">${s.desc}</div>
+      <div class="card-footer">
+        <div class="card-loc">📍 ${s.location}</div>
+        <button class="card-contact" onclick="openModal(${i})">Contact →</button>
+      </div>`;
+    grid.appendChild(card);
+    setTimeout(() => card.classList.add('visible'), i * 80);
+  });
+}
+
+function filterChip(el, cat) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  activeFilter = cat;
+  applyFilters();
+}
+
+function filterCategory(cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.chip').forEach(c => {
+    c.classList.toggle('active', c.textContent.includes(cat));
+  });
+  applyFilters();
+}
+
+function filterServices() { applyFilters(); }
+
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  filtered = services.filter(s => {
+    const matchCat = activeFilter === 'All' || s.category === activeFilter;
+    const matchQ = !q || s.title.toLowerCase().includes(q) || s.location.toLowerCase().includes(q) || s.provider.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  renderCards(filtered);
+}
+
+function openModal(i) {
+  const s = filtered[i];
+  document.getElementById('modal_title').textContent = s.title;
+  document.getElementById('modal_sub').textContent = s.category + ' · ' + s.location;
+  document.getElementById('modal_name').textContent = s.provider;
+  document.getElementById('modal_loc').textContent = s.location;
+  document.getElementById('modal_contact').textContent = s.contact;
+  document.getElementById('modal_price').textContent = s.price;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+}
+
+async function submitForm() {
+  const name    = document.getElementById('f_name').value.trim();
+  const contact = document.getElementById('f_contact').value.trim();
+  const title   = document.getElementById('f_title').value.trim();
+  const cat     = document.getElementById('f_cat').value;
+  const loc     = document.getElementById('f_loc').value.trim();
+  const desc    = document.getElementById('f_desc').value.trim();
+  const price   = document.getElementById('f_price').value.trim() || 'Negotiable';
+
+  if (!name || !contact || !title || !cat || !loc || !desc) {
+    alert('Please fill in all required fields!');
+    return;
+  }
+
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title,
+        provider: name,
+        category: cat,
+        location: loc,
+        description: desc,
+        contact,
+        price
+      })
+    });
+
+    if (!res.ok) throw new Error('Server error');
+
+    document.getElementById('serviceForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    loadServices();
+  } catch (err) {
+    alert('❌ Could not post service. Make sure the server is running (node server.js).');
+  }
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Init — load from DB instead of hardcoded array
+loadServices();
+</script>
+</body>
+</html>
